@@ -1,0 +1,52 @@
+<html>
+<head>
+<script>
+function createGradeBook() {
+    const students = [];
+    function addStudent(name) {
+      const grades = {};
+      students.push({
+        name,
+        grades
+      });
+      console.log(`Added student ${name}.`);
+      function addGrade(course, grade) {
+        if (!grades[course]) {
+          grades[course] = [];
+        }
+        grades[course].push(grade);
+        console.log(`Added grade ${grade} for ${course} for ${name}.`);
+      }
+      function getGrades() {
+        return grades;
+      }
+      return {
+        addGrade,
+        getGrades
+      };
+    }
+    function getStudentGrades(name) {
+      const student = students.find(s => s.name === name);
+      if (student) {
+        return student.grades;
+      } else {
+        console.log(`Could not find student ${name}.`);
+      }
+    }
+    return {
+      addStudent,
+      getStudentGrades
+    };
+  }
+  
+  const gradeBook = createGradeBook();
+  const boss = gradeBook.addStudent('boss');
+  const akarsh = gradeBook.addStudent('akarsh');
+  boss.addGrade('Calculus I', 90);
+  boss.addGrade('Introduction to Computer Science', 85);
+  akarsh.addGrade('Calculus I', 95);
+  console.log(gradeBook.getStudentGrades('boss'));
+  console.log(gradeBook.getStudentGrades('akarsh')); 
+</script>
+</head>
+</html>
